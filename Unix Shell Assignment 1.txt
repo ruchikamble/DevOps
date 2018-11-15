@@ -101,7 +101,94 @@ e.g. if entered number is 5 then 1+2+3+4+5
 
 5. Write a shell script to perform like calculator. It should ask for the number and operand from the user. 
 
+# !/bin/bash
+
+echo "Enter Two numbers : "
+read a
+read b
+
+echo "Enter Choice :"
+echo "1. Addition"
+echo "2. Subtraction"
+echo "3. Multiplication"
+echo "4. Division"
+read ch
+
+
+case $ch in
+  1)res=`expr $a + $b | bc`
+  ;;
+  2)res=`expr $a - $b | bc`
+  ;;
+  3)res=`expr $a \* $b | bc`
+  ;;
+  4)res=`expr "scale=2; $a / $b" | bc`
+  ;;
+esac
+echo "Result : $res"
+
+
+Assignment-2
+
+1. Write a shell script to calculate the area of rectangle. It should take the value from the command line.
+
+#!/bin/bash
+
+area=`expr $1 \* $2`
+
+echo "Area of Rectangle : $area"
 
 
 
-(10 / 100)
+2. Write a shell script to take two numbers from command line and show result of dividing small number with bigger number. Also note that it should not accept zero or negative number. If user enter zero or negative number then it should prompt to input correct number after displaying proper message.
+
+#!/bin/bash
+
+if [ $1 -le 0 -o $2 -le 0 ]
+then
+        echo "Number should be greater than zero. Enter again"
+else
+
+        if [ $1 -gt $2 ]
+        then
+                result=`expr $1 / $2`
+                echo "result: $result"
+        else
+                result=`expr $2 / $1`
+                echo "result: $result"
+        fi
+fi
+
+
+3. Write a Unix Shell Script which prints the following
+a. Current home directory.
+b. Current user name.
+c. The message "Today is :" with current date in MM/dd/yy format
+d. The message "No of users logged in :" with total no of current logged in users
+e. The message "Terminal :” With you own terminal number
+
+#!/bin/bash
+
+current_dir=$(pwd)
+
+echo "Current working directory: $current_dir"
+
+current_username=$(whoami)
+
+echo "Current username : $current_username"
+
+current_date=$(date +'%m/%d/%Y')
+
+echo "Today is : $current_date"
+
+users=$(who|wc -l)
+
+echo "Number of users logged in: $users"
+
+terminal=$(tty)
+
+echo "Terminal: $terminal"
+
+
+4. Write a shell script to create a command line calculator.
+e.g. input : mycal 5 + 5 Result : 10 , input : mycal 5 / 5 result : 1
